@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CosmicCoin Mining Airdrop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0c29;
+      background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    }
+    .hidden {
+      display: none;
+    }
+    .button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>CosmicCoin Mining Airdrop</h1>
+  <div id="mainSection" class="section">
+    <h2>Welcome to the CosmicCoin Airdrop</h2>
+    <button class="button" onclick="startMining(24)">Start 24-Hour Mining</button>
+    <button class="button" onclick="startMining(12)">Start 12-Hour Mining</button>
+  </div>
+  
+  <div id="miningSection" class="section hidden">
+    <h2>Mining CosmicCoin</h2>
+    <p id="miningStatus">Mining in progress...</p>
+    <button class="button" onclick="stopMining()">Stop Mining</button>
+  </div>
+
+  <div id="tasksSection" class="section hidden">
+    <h2>Complete Tasks to Boost Mining Rate</h2>
+    <ul>
+      <li><a href="https://x.com/Miracleharbor?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_ceo_x')">Follow CEO on X</button></a></li>
+      <li><a href="https://x.com/MirakleGroup?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_group_x')">Follow Mirakle Group on X</button></a></li>
+      <li><a href="https://www.instagram.com/miracleharbor?igsh=MTRkcnF4ajV6cDl0Zw==" target="_blank"><button class="button" onclick="completeTask('follow_ceo_ig')">Follow CEO on Instagram</button></a></li>
+      <li><a href="https://www.tiktok.com/@miraklegroup?_t=8lMgf55i0IP&_r=1" target="_blank"><button class="button" onclick="completeTask('follow_group_tiktok')">Follow Mirakle Group on TikTok</button></a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61557787735701" target="_blank"><button class="button" onclick="completeTask('follow_ceo_fb')">Follow CEO on Facebook</button></a></li>
+      <li><a href="https://www.instagram.com/mirakleai?igsh=MXB2bjFobmdxcXBkOA==" target="_blank"><button class="button" onclick="completeTask('follow_ai_ig')">Follow Mirakle AI on Instagram</button></a></li>
+      <li><a href="https://www.instagram.com/mirakle.group?igsh=Yjg4cXhuc3VlbTRn" target="_blank"><button class="button" onclick="completeTask('follow_group_ig')">Follow Mirakle Group on Instagram</button></a></li>
+      <li><a href="https://youtube.com/@MirakleGroup?si=L_kk9-UNUVZDCurY" target="_blank"><button class="button" onclick="completeTask('subscribe_youtube')">Subscribe to YouTube Channel</button></a></li>
+      <li><a href="https://www.instagram.com/prime.blog14u?igsh=MTg1Z3V4bng0Z3BlNw==" target="_blank"><button class="button" onclick="completeTask('follow_cpo_ig')">Follow CPO on Instagram</button></a></li>
+      <li><a href="https://x.com/tosinsodiya1?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_cpo_x')">Follow CPO on X</button></a></li>
+      <li><a href="https://www.instagram.com/idiya_18?igsh=MWRzNjJzbm9jbDYydg==" target="_blank"><button class="button" onclick="completeTask('follow_cao_ig')">Follow CAO on Instagram</button></a></li>
+      <li><a href="https://x.com/Vickydiya1?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_cao_x')">Follow CAO on X</button></a></li>
+    </ul>
+  </div>
+  
+  <div id="rewardsSection" class="section hidden">
+    <h2>Daily Rewards</h2>
+    <button class="button" onclick="claimDailyReward()">Claim Daily Reward</button>
+  </div>
+  
+  <div id="referralSection" class="section hidden">
+    <h2>Referral Program</h2>
+    <p>Invite friends to earn more CosmicCoin!</p>
+    <button class="button" onclick="inviteFriend()">Invite a Friend</button>
+  </div>
+  
+  <div id="comingSoonSection" class="section hidden">
+    <h2>Connecting Wallet</h2>
+    <p>Coming Soon...</p>
+  </div>
+  
+  <div id="notificationsSection" class="section hidden">
+    <h2>Notifications</h2>
+    <p>Enable notifications to never miss a mining session!</p>
+    <button class="button" onclick="enableNotifications()">Enable Notifications</button>
+  </div>
+  
+  <div id="termsSection" class="section hidden">
+    <h2>Terms and Conditions</h2>
+    <p>Some simple terms and conditions...</p>
+  </div>
+
+  <script>
+    const user = {
+      address: '0xE2Ebf493243E7C7183c4868ef91E813bB353A7CF',
+      balance: 0,
+      miningRate: 1, // CosmicCoins per hour
+      tasksCompleted: {},
+      referrals: 0,
+      dailyRewardClaimed: false,
+      nickname: 'CosmicMiner',
+      miningEndTime: null,
+    };
+
+    const taskRewards = {
+      follow_ceo_x: 5,
+      follow_group_x: 5,
+      follow_ceo_ig: 5,
+      follow_group_tiktok: 5,
+      follow_ceo_fb: 5,
+      follow_ai_ig: 5,
+      follow_group_ig: 5,
+      subscribe_youtube: 10,
+      follow_cpo_ig: 5,
+      follow_cpo_x: 5,
+      follow_cao_ig: 5,
+      follow_cao_x: 5,
+    };
+
+    function startMining(hours) {
+      document.getElementById('mainSection').classList.add('hidden');
+      document.getElementById('miningSection').classList.remove('hidden');
+      // Calculate mining end time
+      const currentTime = new Date().getTime();
+      user.miningEndTime = currentTime + (hours * 60 * 60 * 1000);
+
+      updateMiningStatus();
+
+      // Set a timer to simulate mining progress
+      setTimeout(() => {
+        const now = new Date().getTime();
+        if (now >= user.miningEndTime) {
+          user.balance += user.miningRate * hours;
+          document.getElementById('miningStatus').innerText = `Mining completed. Current balance: ${user.balance} CosmicCoin.`;
+          notifyUser('Mining session completed!');
+        } else {
+          updateMiningStatus();
+        }
+      }, 1000); // Update every second
+    }
+
+    function updateMiningStatus() {
+      const now = new Date().getTime();
+      if (now < user.miningEndTime) {
+        const timeLeft = user.miningEndTime - now;
+        const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        document.getElementById('miningStatus').innerText = `Mining in progress... Time left: ${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+        setTimeout(updateMiningStatus, 1000);
+      } else {
+        user.balance += user.miningRate * 24;
+        document.getElementById('miningStatus').innerText = `Mining completed. Current balance: ${user.balance} CosmicCoin.`;
+      }
+    }
+
+    function stopMining() {
+      document.getElementById('miningSection').classList.add('hidden');
+      document.getElementById('mainSection').classList.remove('hidden');
+      notifyUser('Mining session stopped.');
+    }
+
+    function completeTask(task) {
+      if (!user.tasksCompleted[task]) {
+        user.tasksCompleted[task] = true;
+        user.balance += taskRewards[task]; // Add task reward to the user's balance
+        user.miningRate += 1; // Increase mining rate by 1 for each completed task
+        alert('Task completed! Your mining rate has increased and you earned ' + taskRewards[task] + ' CosmicCoin. Current balance: ' + user.balance + ' CosmicCoin.');
+      } else {
+        alert('Task already completed.');
+      }
+    }
+
+    function claimDailyReward() {
+      if (!user.dailyRewardClaimed) {
+        user.balance += 10; // Add daily reward to the user's balance
+        user.dailyRewardClaimed = true;
+        alert('Daily reward claimed! Current balance: ' + user.balance + ' CosmicCoin.');
+      } else {
+        alert('Daily reward already claimed.');
+      }
+    }
+
+    function inviteFriend() {
+      user.referrals += 1;
+      alert('Friend invited! You have ' + user.referrals + ' referrals.');
+      // Implement referral logic here
+    }
+
+    function enableNotifications() {
+      alert('Notifications enabled.');
+      // Implement notification logic here
+    }
+
+    function notifyUser(message) {
+      if (Notification.permission === 'granted') {
+        new Notification(message);
+      }
+    }
+
+    // Request notification permission on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+      document.getElementById('mainSection').classList.remove('hidden');
+    });
+
+  </script>
+</body>
+</html>
