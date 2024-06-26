@@ -3,147 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <title>CosmicCoin Mining Airdrop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f0c29;
-      background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    .section {
-      margin: 20px 0;
-      padding: 20px;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-    }
     .hidden {
       display: none;
     }
-    .button {
-      padding: 10px 20px;
-      border: none;
-      background-color: #3498db;
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f0c29;
+      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
       color: white;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 5px;
-      border-radius: 5px;
-    }
-    .button:hover {
-      background-color: #2980b9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
     }
   </style>
 </head>
-<body>
-  <h1>CosmicCoin Mining Airdrop</h1>
-  <div id="mainSection" class="section">
-    <h2>Welcome to the CosmicCoin Airdrop</h2>
-    <button class="button" onclick="startMining(24)">Start 24-Hour Mining</button>
-    <button class="button" onclick="startMining(12)">Start 12-Hour Mining</button>
-  </div>
-  
-  <div id="miningSection" class="section hidden">
-    <h2>Mining CosmicCoin</h2>
-    <p id="miningStatus">Mining in progress...</p>
-    <button class="button" onclick="stopMining()">Stop Mining</button>
+<body class="bg-gray-900 text-white text-center p-6">
+  <div class="loading-screen" id="loadingScreen">
+    <div>
+      <h1 class="text-4xl font-bold mb-4">CosmicCoin Galaxy Airdrop</h1>
+      <p class="text-lg">Loading...</p>
+    </div>
   </div>
 
-  <div id="tasksSection" class="section hidden">
-    <h2>Complete Tasks to Boost Mining Rate</h2>
-    <ul>
-      <li><a href="https://x.com/Miracleharbor?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_ceo_x')">Follow CEO on X</button></a></li>
-      <li><a href="https://x.com/MirakleGroup?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_group_x')">Follow Mirakle Group on X</button></a></li>
-      <li><a href="https://www.instagram.com/miracleharbor?igsh=MTRkcnF4ajV6cDl0Zw==" target="_blank"><button class="button" onclick="completeTask('follow_ceo_ig')">Follow CEO on Instagram</button></a></li>
-      <li><a href="https://www.tiktok.com/@miraklegroup?_t=8lMgf55i0IP&_r=1" target="_blank"><button class="button" onclick="completeTask('follow_group_tiktok')">Follow Mirakle Group on TikTok</button></a></li>
-      <li><a href="https://www.facebook.com/profile.php?id=61557787735701" target="_blank"><button class="button" onclick="completeTask('follow_ceo_fb')">Follow CEO on Facebook</button></a></li>
-      <li><a href="https://www.instagram.com/mirakleai?igsh=MXB2bjFobmdxcXBkOA==" target="_blank"><button class="button" onclick="completeTask('follow_ai_ig')">Follow Mirakle AI on Instagram</button></a></li>
-      <li><a href="https://www.instagram.com/mirakle.group?igsh=Yjg4cXhuc3VlbTRn" target="_blank"><button class="button" onclick="completeTask('follow_group_ig')">Follow Mirakle Group on Instagram</button></a></li>
-      <li><a href="https://youtube.com/@MirakleGroup?si=L_kk9-UNUVZDCurY" target="_blank"><button class="button" onclick="completeTask('subscribe_youtube')">Subscribe to YouTube Channel</button></a></li>
-      <li><a href="https://www.instagram.com/prime.blog14u?igsh=MTg1Z3V4bng0Z3BlNw==" target="_blank"><button class="button" onclick="completeTask('follow_cpo_ig')">Follow CPO on Instagram</button></a></li>
-      <li><a href="https://x.com/tosinsodiya1?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_cpo_x')">Follow CPO on X</button></a></li>
-      <li><a href="https://www.instagram.com/idiya_18?igsh=MWRzNjJzbm9jbDYydg==" target="_blank"><button class="button" onclick="completeTask('follow_cao_ig')">Follow CAO on Instagram</button></a></li>
-      <li><a href="https://x.com/Vickydiya1?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button" onclick="completeTask('follow_cao_x')">Follow CAO on X</button></a></li>
+  <h1 class="text-3xl font-bold mb-6">CosmicCoin Mining Airdrop</h1>
+
+  <div id="mainSection" class="hidden">
+    <h2 class="text-2xl mb-4">Welcome to the CosmicCoin Airdrop</h2>
+    <button class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="startMining(24)">Start 24-Hour Mining</button>
+    <button class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="startMining(12)">Start 12-Hour Mining</button>
+  </div>
+
+  <div id="miningSection" class="hidden">
+    <h2 class="text-2xl mb-4">Mining CosmicCoin</h2>
+    <p id="miningStatus" class="text-lg mb-4">Mining in progress...</p>
+    <p id="miningAmount" class="text-lg mb-4"></p>
+    <button class="button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" onclick="stopMining()">Stop Mining</button>
+  </div>
+
+  <div id="tasksSection" class="hidden">
+    <h2 class="text-2xl mb-4">Complete Tasks to Boost Mining Rate</h2>
+    <ul class="list-disc list-inside">
+      <li><a href="https://x.com/Miracleharbor?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ceo_x')">Follow CEO on X</button></a></li>
+      <li><a href="https://x.com/MirakleGroup?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_group_x')">Follow Mirakle Group on X</button></a></li>
+      <li><a href="https://www.instagram.com/miracleharbor?igsh=MTRkcnF4ajV6cDl0Zw==" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ceo_ig')">Follow CEO on Instagram</button></a></li>
+      <li><a href="https://www.tiktok.com/@miraklegroup?_t=8lMgf55i0IP&_r=1" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_group_tiktok')">Follow Mirakle Group on TikTok</button></a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61557787735701" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ceo_fb')">Follow CEO on Facebook</button></a></li>
+      <li><a href="https://www.instagram.com/mirakleai?igsh=MXB2bjFobmdxcXBkOA==" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ai_ig')">Follow Mirakle AI on Instagram</button></a></li>
+      <li><a href="https://www.instagram.com/mirakle.group?igsh=Yjg4cXhuc3VlbTRn" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_group_ig')">Follow Mirakle Group on Instagram</button></a></li>
+      <li><a href="https://youtube.com/@MirakleGroup?si=L_kk9-UNUVZDCurY" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('subscribe_youtube')">Subscribe to YouTube Channel</button></a></li>
+      <li><a href="https://www.instagram.com/prime.blog14u?igsh=MTg1Z3V4bng0Z3BlNw==" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_cpo_ig')">Follow CPO on Instagram</button></a></li>
+      <li><a href="https://x.com/tosinsodiya1?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_cpo_x')">Follow CPO on X</button></a></li>
+      <li><a href="https://www.instagram.com/idiya_18?igsh=MWRzNjJzbm9jbDYydg==" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_cao_ig')">Follow CAO on Instagram</button></a></li>
+      <li><a href="https://x.com/Vickydiya1?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_cao_x')">Follow CAO on X</button></a></li>
     </ul>
   </div>
-  
-  <div id="rewardsSection" class="section hidden">
-    <h2>Daily Rewards</h2>
-    <button class="button" onclick="claimDailyReward()">Claim Daily Reward</button>
+
+  <div id="rewardsSection" class="hidden">
+    <h2 class="text-2xl mb-4">Daily Rewards</h2>
+    <button class="button bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full" onclick="claimDailyReward()">Claim Daily Reward</button>
   </div>
-  
-  <div id="referralSection" class="section hidden">
-    <h2>Referral Program</h2>
+
+  <div id="referralSection" class="hidden">
+    <h2 class="text-2xl mb-4">Referral Program</h2>
     <p>Invite friends to earn more CosmicCoin!</p>
-    <button class="button" onclick="inviteFriend()">Invite a Friend</button>
+    <input type="text" id="inviteLink" class="text-black w-full mb-4 p-2 rounded" readonly>
+    <button class="button bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full" onclick="generateInviteLink()">Generate Invite Link</button>
+    <button class="button bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full" onclick="inviteFriend()">Invite a Friend</button>
+    <p id="inviteStatus" class="mt-2"></p>
   </div>
-  
-  <div id="comingSoonSection" class="section hidden">
-    <h2>Connecting Wallet</h2>
-    <p>Coming Soon...</p>
+
+  <div id="notificationsSection" class="hidden">
+    <h2 class="text-2xl mb-4">Enable Notifications</h2>
+    <button class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="enableNotifications()">Enable Notifications</button>
   </div>
-  
-  <div id="notificationsSection" class="section hidden">
-    <h2>Notifications</h2>
-    <p>Enable notifications to never miss a mining session!</p>
-    <button class="button" onclick="enableNotifications()">Enable Notifications</button>
-  </div>
-  
-  <div id="termsSection" class="section hidden">
-    <h2>Terms and Conditions</h2>
-    <p>Some simple terms and conditions...</p>
+
+  <div id="comingSoonSection" class="hidden">
+    <h2 class="text-2xl mb-4">Wallet Integration Coming Soon</h2>
+    <p>Stay tuned for the ability to connect your wallet.</p>
   </div>
 
   <script>
     const user = {
-      address: '0xE2Ebf493243E7C7183c4868ef91E813bB353A7CF',
+      id: Math.random().toString(36).substring(2), // Unique user ID
       balance: 0,
-      miningRate: 1, // CosmicCoins per hour
-      tasksCompleted: {},
-      referrals: 0,
-      dailyRewardClaimed: false,
-      nickname: 'CosmicMiner',
+      miningRate: 5, // CosmicCoin per hour
       miningEndTime: null,
+      tasksCompleted: {},
+      dailyRewardClaimed: false,
+      referrals: 0,
+      referralLinks: [],
     };
 
     const taskRewards = {
-      follow_ceo_x: 5,
-      follow_group_x: 5,
-      follow_ceo_ig: 5,
-      follow_group_tiktok: 5,
-      follow_ceo_fb: 5,
-      follow_ai_ig: 5,
-      follow_group_ig: 5,
+      follow_ceo_x: 10,
+      follow_group_x: 10,
+      follow_ceo_ig: 10,
+      follow_group_tiktok: 10,
+      follow_ceo_fb: 10,
+      follow_ai_ig: 10,
+      follow_group_ig: 10,
       subscribe_youtube: 10,
-      follow_cpo_ig: 5,
-      follow_cpo_x: 5,
-      follow_cao_ig: 5,
-      follow_cao_x: 5,
+      follow_cpo_ig: 10,
+      follow_cpo_x: 10,
+      follow_cao_ig: 10,
+      follow_cao_x: 10,
     };
 
     function startMining(hours) {
+      user.miningEndTime = new Date().getTime() + hours * 60 * 60 * 1000;
       document.getElementById('mainSection').classList.add('hidden');
       document.getElementById('miningSection').classList.remove('hidden');
-      // Calculate mining end time
-      const currentTime = new Date().getTime();
-      user.miningEndTime = currentTime + (hours * 60 * 60 * 1000);
-
       updateMiningStatus();
-
-      // Set a timer to simulate mining progress
-      setTimeout(() => {
-        const now = new Date().getTime();
-        if (now >= user.miningEndTime) {
-          user.balance += user.miningRate * hours;
-          document.getElementById('miningStatus').innerText = `Mining completed. Current balance: ${user.balance} CosmicCoin.`;
-          notifyUser('Mining session completed!');
-        } else {
-          updateMiningStatus();
-        }
-      }, 1000); // Update every second
     }
 
     function updateMiningStatus() {
@@ -154,9 +132,11 @@
         const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
         document.getElementById('miningStatus').innerText = `Mining in progress... Time left: ${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
+        const minedAmount = ((new Date().getTime() - (user.miningEndTime - hours * 60 * 60 * 1000)) / (1000 * 60 * 60)) * user.miningRate;
+        document.getElementById('miningAmount').innerText = `CosmicCoin mined so far: ${minedAmount.toFixed(2)}`;
         setTimeout(updateMiningStatus, 1000);
       } else {
-        user.balance += user.miningRate * 24;
+        user.balance += user.miningRate * hours;
         document.getElementById('miningStatus').innerText = `Mining completed. Current balance: ${user.balance} CosmicCoin.`;
       }
     }
@@ -188,6 +168,13 @@
       }
     }
 
+    function generateInviteLink() {
+      const inviteLink = `https://wapchat.com/airdrop?ref=${user.id}`;
+      user.referralLinks.push(inviteLink);
+      document.getElementById('inviteLink').value = inviteLink;
+      document.getElementById('inviteStatus').innerText = `Invite your friends using the link above.`;
+    }
+
     function inviteFriend() {
       user.referrals += 1;
       alert('Friend invited! You have ' + user.referrals + ' referrals.');
@@ -211,8 +198,15 @@
         Notification.requestPermission();
       }
       document.getElementById('mainSection').classList.remove('hidden');
+      document.getElementById('tasksSection').classList.remove('hidden');
+      document.getElementById('rewardsSection').classList.remove('hidden');
+      document.getElementById('referralSection').classList.remove('hidden');
+      document.getElementById('comingSoonSection').classList.remove('hidden');
+      document.getElementById('notificationsSection').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 2000);
     });
-
   </script>
 </body>
 </html>
