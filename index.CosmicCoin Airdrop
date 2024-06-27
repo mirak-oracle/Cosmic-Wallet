@@ -64,13 +64,13 @@
     }
     @keyframes rotate-animation {
       0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      95% { transform: rotate(360deg); }
     }
     .rotating-circle .balance {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 40%;
+      left: 40%;
+      transform: translate(-40%, -40%);
       color: white;
       font-size: 1.5rem;
     }
@@ -82,11 +82,11 @@
       border-radius: 1rem;
       transition: background 0.3s ease;
       display: block;
-      width: 100%;
+      width: 95%;
       margin-bottom: 1rem;
     }
     .task-button:hover {
-      background-position: 100% 0;
+      background-position: 95% 0;
           }
     }
   </style>
