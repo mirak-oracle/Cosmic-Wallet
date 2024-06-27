@@ -31,6 +31,14 @@
       width: 20%;
       text-align: center;
     }
+    .holographic-text {
+      background: linear-gradient(45deg, #ff0099, #493240, #1CB5E0, #000046);
+      background-size: 200% 200%;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: gradient-animation 2s linear infinite;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white text-center p-6">
@@ -47,7 +55,7 @@
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4" onclick="startMining(24)">Start 24-Hour Mining</button>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4" onclick="startMining(12)">Start 12-Hour Mining</button>
     <div id="miningStatus" class="text-lg mb-4"></div>
-    <div id="miningAmount" class="text-lg mb-4"></div>
+    <div id="miningAmount" class="text-lg mb-4 holographic-text"></div>
   </div>
 
   <div id="tasksSection" class="hidden">
@@ -86,11 +94,11 @@
   </div>
 
   <div id="comingSoonSection" class="hidden">
-    <h2 class="text-2xl mb-4">Wallet Integration Coming Soon</h2>
-    <p>Stay tuned for the ability to connect your wallet.</p>
+    <h2 class="text-2xl mb-4">Wallet</h2>
+    <p>Coming soon...</p>
   </div>
 
-  <div class="fixed bottom-0 w-full flex justify-around bg-gray-800 p-4">
+  <div class="fixed bottom-0 left-0 right-0 bg-gray-800 py-2 flex justify-around">
     <button class="nav-button text-lg" onclick="showSection('mainSection')">Mine</button>
     <button class="nav-button text-lg" onclick="showSection('tasksSection')">Tasks</button>
     <button class="nav-button text-lg" onclick="showSection('rewardsSection')">Rewards</button>
@@ -126,6 +134,7 @@
         const seconds = Math.floor(timeLeft % 60);
 
         document.getElementById('miningStatus').innerText = `Mining in progress: ${hours}h ${minutes}m ${seconds}s left`;
+        updateMiningAmount((hours * 60 * 60) + (minutes * 60) + seconds);
         setTimeout(updateMiningStatus, 1000);
       } else {
         document.getElementById('miningStatus').innerText = 'Mining complete!';
@@ -133,7 +142,15 @@
         localStorage.setItem('balance', currentBalance + 10); // Adjust the reward as necessary
         localStorage.setItem('isMining', 'false');
         updateBalanceDisplay();
+        sendReminder();
       }
+    }
+
+    function updateMiningAmount(secondsLeft) {
+      const ratePerSecond = 6.0001; // Adjust mining rate per second
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
+      document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
     }
 
     function updateBalanceDisplay() {
@@ -162,23 +179,39 @@
     }
 
     function completeTask(taskId) {
-      // Add logic for completing tasks and boosting mining rate
       alert(`Task ${taskId} completed!`);
+      // Add logic for completing tasks and boosting mining rate
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      localStorage.setItem('balance', currentBalance + 5); // Reward for task completion
+      updateBalanceDisplay();
     }
 
     function claimDailyReward() {
-      // Add logic for claiming daily rewards
       alert('Daily reward claimed!');
+      // Add logic for claiming daily rewards
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
+      updateBalanceDisplay();
     }
 
     function inviteFriend() {
-      // Add logic for inviting friends
       alert('Invite sent!');
+      // Add logic for inviting friends
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      localStorage.setItem('balance', currentBalance + 20); // Reward for inviting friend
+      updateBalanceDisplay();
     }
 
     function enableNotifications() {
-      // Add logic for enabling notifications
       alert('Notifications enabled!');
+      // Add logic for enabling notifications
+    }
+
+    function sendReminder() {
+      setTimeout(function() {
+        alert('Reminder: Come back to mine more CosmicCoin!');
+        // Add logic to send notification
+      }, 1000); // Adjust the timing as necessary
     }
   </script>
 </body>
