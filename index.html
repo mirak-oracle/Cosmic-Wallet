@@ -115,7 +115,7 @@
       <li><a href="https://x.com/MirakleGroup?t=dqzzaDkR4c-ZDb55Msit8g&s=09" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_group_x')">Follow Mirakle Group on X</button></a></li>
       <li><a href="https://www.instagram.com/miracleharbor?igsh=MTRkcnF4ajV6cDl0Zw==" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ceo_ig')">Follow CEO on Instagram</button></a></li>
       <li><a href="https://www.tiktok.com/@miraklegroup?_t=8lMgf55i0IP&_r=1" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_group_tiktok')">Follow Mirakle Group on TikTok</button></a></li>
-      <li><a href="https://www.facebook.com/profile.php?id=61557787735701" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ceo_fb')">Follow CEO on Facebook</button></a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61557787735701" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ceo_fb')">Follow Mirakle Group on Facebook</button></a></li>
       <li><a href="https://www.instagram.com/mirakleai?igsh=MXB2bjFobmdxcXBkOA==" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_ai_ig')">Follow Mirakle AI on Instagram</button></a></li>
       <li><a href="https://www.instagram.com/mirakle.group?igsh=Yjg4cXhuc3VlbTRn" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('follow_group_ig')">Follow Mirakle Group on Instagram</button></a></li>
       <li><a href="https://youtube.com/@MirakleGroup?si=L_kk9-UNUVZDCurY" target="_blank"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2" onclick="completeTask('subscribe_youtube')">Subscribe to YouTube Channel</button></a></li>
@@ -236,17 +236,7 @@
       updateBalanceDisplay();
     }
 
-      const completeTask = (taskName) => {
-      const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
-      if (!completedTasks.includes(taskName)) {
-        completedTasks.push(taskName);
-        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-        alert('Task completed! Mining rate increased.');
-      } else {
-        alert('Task already completed.');
-      }
-    
-    
+
     function claimDailyReward() {
       alert('Daily reward claimed!');
       // Add logic for claiming daily rewards
