@@ -236,6 +236,17 @@
       updateBalanceDisplay();
     }
 
+      const completeTask = (taskName) => {
+      const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
+      if (!completedTasks.includes(taskName)) {
+        completedTasks.push(taskName);
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+        alert('Task completed! Mining rate increased.');
+      } else {
+        alert('Task already completed.');
+      }
+    };
+    
     function claimDailyReward() {
       alert('Daily reward claimed!');
       // Add logic for claiming daily rewards
