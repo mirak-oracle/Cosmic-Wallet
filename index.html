@@ -87,7 +87,7 @@
     }
     .task-button:hover {
       background-position: 100% 0;
-    }
+          }
     }
   </style>
 </head>
@@ -126,17 +126,10 @@
     </ul>
   </div>
 
-    <div class="mt-8">
-    <h2 class="text-2xl font-bold">Rewards</h2>
-    <div id="dailyRewards">
-      <button class="task-button" id="day1">Day 1: 100 CosmicCoin</button>
-      <button class="task-button" id="day2">Day 2: 200 CosmicCoin</button>
-      <button class="task-button" id="day3">Day 3: 300 CosmicCoin</button>
-      <button class="task-button" id="day4">Day 4: 400 CosmicCoin</button>
-      <button class="task-button" id="day5">Day 5: 500 CosmicCoin</button>
-      <button class="task-button" id="day6">Day 6: 600 CosmicCoin</button>
-      <button class="task-button" id="day7">Day 7: 700 CosmicCoin</button>
-    </div>
+  <div id="rewardsSection" class="hidden">
+    <h2 class="text-2xl mb-4">Daily Rewards</h2>
+    <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full" onclick="claimDailyReward()">Claim Daily Reward</button>
+  </div>
 
   <div id="referralSection" class="hidden">
     <h2 class="text-2xl mb-4">Referral Program</h2>
@@ -235,30 +228,20 @@
       document.getElementById(sectionId).classList.remove('hidden');
     }
 
-    function completeTask(task) {
-      if (!localStorage.getItem(task)) {
-        localStorage.setItem(task, 'completed');
-        cosmicBalance += 50;  // Reward amount for task completion
-        balanceDisplay.textContent = `${cosmicBalance} CosmicCoin`;
-        sendNotification(`Task completed: ${task}`);
-      } else {
-        alert('Task already completed.');
-      }
-    
+    function completeTask(taskId) {
+      alert(`Task ${taskId} completed!`);
+      // Add logic for completing tasks and boosting mining rate
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      localStorage.setItem('balance', currentBalance + 100); // Reward for task completion
+      updateBalanceDisplay();
     }
 
-    // Daily Rewards
-    for (let i = 1; i <= 7; i++) {
-      document.getElementById(`day${i}`).addEventListener('click', function() {
-        if (!localStorage.getItem(`day${i}`)) {
-          localStorage.setItem(`day${i}`, 'claimed');
-          cosmicBalance += i * 100;  // Example daily reward amount
-          balanceDisplay.textContent = `${cosmicBalance} CosmicCoin`;
-          sendNotification(`Day ${i} reward claimed: ${i * 100} CosmicCoin`);
-        } else {
-          alert(`Day ${i} reward already claimed.`);
-        }
-      });
+    function claimDailyReward() {
+      alert('Daily reward claimed!');
+      // Add logic for claiming daily rewards
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
+      updateBalanceDisplay();
     }
 
     function inviteFriend() {
