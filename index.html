@@ -41,8 +41,12 @@
       animation: gradient-animation 2s linear infinite, rotate-animation 2s linear infinite;
     }
     @keyframes rotate-animation {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+0% {
+transform: rotate(0deg) translateX(0px) translateY(0px);
+}
+100% {
+transform: rotate(360deg) translateX(-50%) translateY(-50%);
+}
     }
   </style>
 </head>
@@ -109,7 +113,7 @@
     <button class="nav-button text-lg" onclick="showSection('rewardsSection')">Rewards</button>
     <button class="nav-button text-lg" onclick="showSection('referralSection')">Referral</button>
     <button class="nav-button text-lg" onclick="showSection('notificationsSection')">Alert</button>
-    <button class="nav-button text-lg" onclick="showSection('comingSoonSection')">Wallet</button>
+    <button class="nav-button text-lg" onclick="showSection('comingSoonSection')">WAL</button>
   </div>
 
   <script>
