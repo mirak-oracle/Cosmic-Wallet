@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-   .hidden { display: none; }
+    .hidden { display: none; }
     .loading-screen {
       position: fixed;
       top: 0;
@@ -50,9 +50,9 @@
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      animation: gradient-animation 2s linear infinite;
+      animation: gradient-animation 2s linear infinite, rotate-animation 2s linear infinite;
     }
-    .rotating-circle {
+     .rotating-circle {
       position: relative;
       width: 150px;
       height: 150px;
@@ -87,7 +87,7 @@
     }
     .task-button:hover {
       background-position: 100% 0;
-        }
+    }
     }
   </style>
 </head>
@@ -126,17 +126,10 @@
     </ul>
   </div>
 
-    <div class="mt-8">
-    <h2 class="text-2xl font-bold">Daily Rewards</h2>
-    <div id="dailyRewards">
-      <p class="mt-2">Day 1: 100 CosmicCoin</p>
-      <p class="mt-2">Day 2: 200 CosmicCoin</p>
-      <p class="mt-2">Day 3: 300 CosmicCoin</p>
-      <p class="mt-2">Day 4: 400 CosmicCoin</p>
-      <p class="mt-2">Day 5: 500 CosmicCoin</p>
-      <p class="mt-2">Day 6: 600 CosmicCoin</p>
-      <p class="mt-2">Day 7: 700 CosmicCoin</p>
-    </div>
+  <div id="rewardsSection" class="hidden">
+    <h2 class="text-2xl mb-4">Daily Rewards</h2>
+    <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full" onclick="claimDailyReward()">Claim Daily Reward</button>
+  </div>
 
   <div id="referralSection" class="hidden">
     <h2 class="text-2xl mb-4">Referral Program</h2>
@@ -250,19 +243,7 @@
       localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
       updateBalanceDisplay();
     }
-     // Tasks button event listeners
-    const tasks = document.querySelectorAll('.task-button');
-    tasks.forEach((taskButton, index) => {
-      taskButton.addEventListener('click', () => {
-        let reward = (index + 1) * 100;
-        cosmicBalance += reward;
-        balanceDisplay.textContent = `${cosmicBalance} CosmicCoin`;
-        taskButton.disabled = true;
-        taskButton.textContent = "Task Completed";
-        notifyUser(`You earned ${reward} CosmicCoin!`);
-      });
-    });
-    
+
     function inviteFriend() {
       alert('Invite sent!');
       // Add logic for inviting friends
