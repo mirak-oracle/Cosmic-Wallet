@@ -228,20 +228,30 @@
       document.getElementById(sectionId).classList.remove('hidden');
     }
 
-    function completeTask(taskId) {
-      alert(`Task ${taskId} completed!`);
-      // Add logic for completing tasks and boosting mining rate
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 100); // Reward for task completion
-      updateBalanceDisplay();
+    function completeTask(task) {
+      if (!localStorage.getItem(task)) {
+        localStorage.setItem(task, 'completed');
+        cosmicBalance += 50;  // Reward amount for task completion
+        balanceDisplay.textContent = `${cosmicBalance} CosmicCoin`;
+        sendNotification(`Task completed: ${task}`);
+      } else {
+        alert('Task already completed.');
+      }
+    
     }
 
-    function claimDailyReward() {
-      alert('Daily reward claimed!');
-      // Add logic for claiming daily rewards
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
-      updateBalanceDisplay();
+    // Daily Rewards
+    for (let i = 1; i <= 7; i++) {
+      document.getElementById(`day${i}`).addEventListener('click', function() {
+        if (!localStorage.getItem(`day${i}`)) {
+          localStorage.setItem(`day${i}`, 'claimed');
+          cosmicBalance += i * 100;  // Example daily reward amount
+          balanceDisplay.textContent = `${cosmicBalance} CosmicCoin`;
+          sendNotification(`Day ${i} reward claimed: ${i * 100} CosmicCoin`);
+        } else {
+          alert(`Day ${i} reward already claimed.`);
+        }
+      });
     }
 
     function inviteFriend() {
