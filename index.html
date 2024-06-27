@@ -30,6 +30,7 @@
     .nav-button {
       width: 20%;
       text-align: center;
+      margin: 0 0.5rem;
     }
     .holographic-text {
       background: linear-gradient(45deg, #ff0099, #493240, #1CB5E0, #000046);
@@ -37,7 +38,11 @@
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      animation: gradient-animation 2s linear infinite;
+      animation: gradient-animation 2s linear infinite, rotate-animation 2s linear infinite;
+    }
+    @keyframes rotate-animation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -147,7 +152,7 @@
     }
 
     function updateMiningAmount(secondsLeft) {
-      const ratePerSecond = 6.0001; // Adjust mining rate per second
+      const ratePerSecond = 0.0001; // Adjust mining rate per second
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
       document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
@@ -182,7 +187,7 @@
       alert(`Task ${taskId} completed!`);
       // Add logic for completing tasks and boosting mining rate
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 5); // Reward for task completion
+      localStorage.setItem('balance', currentBalance + 1); // Reward for task completion
       updateBalanceDisplay();
     }
 
@@ -190,7 +195,7 @@
       alert('Daily reward claimed!');
       // Add logic for claiming daily rewards
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
+      localStorage.setItem('balance', currentBalance + 5); // Daily reward amount
       updateBalanceDisplay();
     }
 
@@ -198,7 +203,7 @@
       alert('Invite sent!');
       // Add logic for inviting friends
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 20); // Reward for inviting friend
+      localStorage.setItem('balance', currentBalance + 2); // Reward for inviting friend
       updateBalanceDisplay();
     }
 
