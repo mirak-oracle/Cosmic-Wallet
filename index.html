@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>CosmicCoin Mining Airdrop</title>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ES3NKKYCS7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ES3NKKYCS7');
+</script>
+
+  <script type='text/javascript' src='//pl23643603.highrevenuenetwork.com/f4/bd/f7/f4bdf7184e9b5e4b7332b6d98328857e.js'></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -40,9 +52,7 @@
       background-clip: text;
       animation: gradient-animation 2s linear infinite, rotate-animation 2s linear infinite;
     }
-    @keyframes rotate-animation {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    
     }
   </style>
 </head>
@@ -54,7 +64,7 @@
     </div>
   </div>
 
-  <h1 class="text-3xl font-bold mb-6">CosmicCoin Mining Airdrop</h1>
+  <h1 class="text-3xl font-bold mb-6">CosmicCoin Galaxy Airdrop</h1>
 
   <div id="mainSection">
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4" onclick="startMining(24)">Start 24-Hour Mining</button>
@@ -108,8 +118,8 @@
     <button class="nav-button text-lg" onclick="showSection('tasksSection')">Tasks</button>
     <button class="nav-button text-lg" onclick="showSection('rewardsSection')">Rewards</button>
     <button class="nav-button text-lg" onclick="showSection('referralSection')">Referral</button>
-    <button class="nav-button text-lg" onclick="showSection('notificationsSection')">Notifications</button>
-    <button class="nav-button text-lg" onclick="showSection('comingSoonSection')">Wallet</button>
+    <button class="nav-button text-lg" onclick="showSection('notificationsSection')">Alert</button>
+    <button class="nav-button text-lg" onclick="showSection('comingSoonSection')">WAL</button>
   </div>
 
   <script>
@@ -144,7 +154,7 @@
       } else {
         document.getElementById('miningStatus').innerText = 'Mining complete!';
         const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-        localStorage.setItem('balance', currentBalance + 100); // Adjust the reward as necessary
+        localStorage.setItem('balance', currentBalance + 10); // Adjust the reward as necessary
         localStorage.setItem('isMining', 'false');
         updateBalanceDisplay();
         sendReminder();
@@ -152,7 +162,7 @@
     }
 
     function updateMiningAmount(secondsLeft) {
-      const ratePerSecond = 0.00020; // Adjust mining rate per second
+      const ratePerSecond = 0.02; // Adjust mining rate per second
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
       document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
@@ -195,7 +205,7 @@
       alert('Daily reward claimed!');
       // Add logic for claiming daily rewards
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 50); // Daily reward amount
+      localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
       updateBalanceDisplay();
     }
 
@@ -203,7 +213,7 @@
       alert('Invite sent!');
       // Add logic for inviting friends
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 2); // Reward for inviting friend
+      localStorage.setItem('balance', currentBalance + 20); // Reward for inviting friend
       updateBalanceDisplay();
     }
 
