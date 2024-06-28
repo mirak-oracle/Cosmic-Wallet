@@ -155,7 +155,7 @@
     <button class="nav-button text-lg" onclick="showSection('rewardsSection')">Rewards</button>
     <button class="nav-button text-lg" onclick="showSection('referralSection')">Referral</button>
     <button class="nav-button text-lg" onclick="showSection('notificationsSection')">Alert</button>
-    <button class="nav-button text-lg" onclick="showSection('comingSoonSection')">💰💰</button>
+    <button class="nav-button text-lg" onclick="showSection('comingSoonSection')">💰</button>
   </div>
 
   <script>
@@ -198,7 +198,7 @@
     }
 
     function updateMiningAmount(secondsLeft) {
-      const ratePerSecond = 0.02; // Adjust mining rate per second
+      const ratePerSecond = 0.20; // Adjust mining rate per second
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
       document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
@@ -241,7 +241,7 @@
       alert('Daily reward claimed!');
       // Add logic for claiming daily rewards
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 5000000000); // Daily reward amount
+      localStorage.setItem('balance', currentBalance + 50); // Daily reward amount
       updateBalanceDisplay();
     }
 
@@ -249,7 +249,7 @@
       alert('Invite sent!');
       // Add logic for inviting friends
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 20); // Reward for inviting friend
+      localStorage.setItem('balance', currentBalance + 40); // Reward for inviting friend
       updateBalanceDisplay();
     }
 
