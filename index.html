@@ -158,7 +158,7 @@
   </div>
 
   <script>
-          document.addEventListener("DOMContentLoaded", function() {
+   document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     document.getElementById('loadingScreen').style.display = 'none';
   }, 2000);
@@ -267,8 +267,7 @@ function enableNotifications() {
         alert('Notifications enabled!');
         new Notification('CosmicCoin Mining', {
           body: 'Notifications enabled for CosmicCoin mining updates.',
-          icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png
-' // Optional: URL to icon image
+          icon: '' // Optional: URL to icon image
         });
       } else {
         alert('Notifications are blocked. Please enable them in your browser settings.');
@@ -284,8 +283,7 @@ function sendReminder() {
     if (Notification.permission === "granted") {
       new Notification('CosmicCoin Mining Reminder', {
         body: 'Reminder: Come back to mine more CosmicCoin!',
-        icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png
-' // Optional: URL to icon image
+        icon: '' // Optional: URL to icon image
       });
     } else {
       alert('Reminder: Come back to mine more CosmicCoin!');
