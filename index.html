@@ -158,111 +158,139 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      setTimeout(function() {
-        document.getElementById('loadingScreen').style.display = 'none';
-      }, 2000);
-      loadBalance();
-      loadMiningStatus();
+          document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+    document.getElementById('loadingScreen').style.display = 'none';
+  }, 2000);
+  loadBalance();
+  loadMiningStatus();
+});
+
+function startMining(hours) {
+  const endTime = new Date().getTime() + hours * 60 * 60 * 1000;
+  localStorage.setItem('miningEndTime', endTime);
+  localStorage.setItem('isMining', 'true');
+  updateMiningStatus();
+}
+
+function updateMiningStatus() {
+  const miningEndTime = localStorage.getItem('miningEndTime');
+  const currentTime = new Date().getTime();
+
+  if (currentTime < miningEndTime) {
+    const timeLeft = (miningEndTime - currentTime) / 1000;
+    const hours = Math.floor(timeLeft / 3600);
+    const minutes = Math.floor((timeLeft % 3600) / 60);
+    const seconds = Math.floor(timeLeft % 60);
+
+    document.getElementById('miningStatus').innerText = `Mining in progress: ${hours}h ${minutes}m ${seconds}s left`;
+    updateMiningAmount((hours * 60 * 60) + (minutes * 60) + seconds);
+    setTimeout(updateMiningStatus, 1000);
+  } else {
+    document.getElementById('miningStatus').innerText = 'Mining complete!';
+    const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+    localStorage.setItem('balance', currentBalance + 10); // Adjust the reward as necessary
+    localStorage.setItem('isMining', 'false');
+    updateBalanceDisplay();
+    sendReminder();
+  }
+}
+
+function updateMiningAmount(secondsLeft) {
+  const ratePerSecond = 0.0002; // Adjust mining rate per second
+  const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+  const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
+  document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
+}
+
+function updateBalanceDisplay() {
+  const balance = localStorage.getItem('balance') || '0';
+  document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
+}
+
+function loadBalance() {
+  const balance = localStorage.getItem('balance') || '0';
+  document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
+}
+
+function loadMiningStatus() {
+  const isMining = localStorage.getItem('isMining') === 'true';
+  if (isMining) {
+    updateMiningStatus();
+  } else {
+    document.getElementById('miningStatus').innerText = 'No mining in progress';
+  }
+}
+
+function showSection(sectionId) {
+  const sections = ['mainSection', 'tasksSection', 'rewardsSection', 'referralSection', 'notificationsSection', 'comingSoonSection'];
+  sections.forEach(id => document.getElementById(id).classList.add('hidden'));
+  document.getElementById(sectionId).classList.remove('hidden');
+}
+
+function completeTask(taskName) {
+  const completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
+  if (!completedTasks.includes(taskName)) {
+    completedTasks.push(taskName);
+    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    alert('Task completed! Mining rate increased.');
+
+    // Logic for completing tasks and boosting mining rate
+    const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+    localStorage.setItem('balance', currentBalance + 100); // Reward for task completion
+    updateBalanceDisplay();
+  } else {
+    alert('Task already completed.');
+  }
+}
+
+function claimDailyReward() {
+  alert('Daily reward claimed!');
+  // Add logic for claiming daily rewards
+  const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+  localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
+  updateBalanceDisplay();
+}
+
+function inviteFriend() {
+  alert('Invite sent!');
+  // Add logic for inviting friends
+  const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+  localStorage.setItem('balance', currentBalance + 20); // Reward for inviting friend
+  updateBalanceDisplay();
+}
+
+function enableNotifications() {
+  if ("Notification" in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        alert('Notifications enabled!');
+        new Notification('CosmicCoin Mining', {
+          body: 'Notifications enabled for CosmicCoin mining updates.',
+          icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png
+' // Optional: URL to icon image
+        });
+      } else {
+        alert('Notifications are blocked. Please enable them in your browser settings.');
+      }
     });
+  } else {
+    alert('This browser does not support desktop notification');
+  }
+}
 
-    function startMining(hours) {
-      const endTime = new Date().getTime() + hours * 60 * 60 * 1000;
-      localStorage.setItem('miningEndTime', endTime);
-      localStorage.setItem('isMining', 'true');
-      updateMiningStatus();
+function sendReminder() {
+  setTimeout(function() {
+    if (Notification.permission === "granted") {
+      new Notification('CosmicCoin Mining Reminder', {
+        body: 'Reminder: Come back to mine more CosmicCoin!',
+        icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png
+' // Optional: URL to icon image
+      });
+    } else {
+      alert('Reminder: Come back to mine more CosmicCoin!');
     }
-
-    function updateMiningStatus() {
-      const miningEndTime = localStorage.getItem('miningEndTime');
-      const currentTime = new Date().getTime();
-
-      if (currentTime < miningEndTime) {
-        const timeLeft = (miningEndTime - currentTime) / 1000;
-        const hours = Math.floor(timeLeft / 3600);
-        const minutes = Math.floor((timeLeft % 3600) / 60);
-        const seconds = Math.floor(timeLeft % 60);
-
-        document.getElementById('miningStatus').innerText = `Mining in progress: ${hours}h ${minutes}m ${seconds}s left`;
-        updateMiningAmount((hours * 60 * 60) + (minutes * 60) + seconds);
-        setTimeout(updateMiningStatus, 1000);
-      } else {
-        document.getElementById('miningStatus').innerText = 'Mining complete!';
-        const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-        localStorage.setItem('balance', currentBalance + 10); // Adjust the reward as necessary
-        localStorage.setItem('isMining', 'false');
-        updateBalanceDisplay();
-        sendReminder();
-      }
-    }
-
-    function updateMiningAmount(secondsLeft) {
-      const ratePerSecond = 0.0002; // Adjust mining rate per second
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
-      document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
-    }
-
-    function updateBalanceDisplay() {
-      const balance = localStorage.getItem('balance') || '0';
-      document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
-    }
-
-    function loadBalance() {
-      const balance = localStorage.getItem('balance') || '0';
-      document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
-    }
-
-    function loadMiningStatus() {
-      const isMining = localStorage.getItem('isMining') === 'true';
-      if (isMining) {
-        updateMiningStatus();
-      } else {
-        document.getElementById('miningStatus').innerText = 'No mining in progress';
-      }
-    }
-
-    function showSection(sectionId) {
-      const sections = ['mainSection', 'tasksSection', 'rewardsSection', 'referralSection', 'notificationsSection', 'comingSoonSection'];
-      sections.forEach(id => document.getElementById(id).classList.add('hidden'));
-      document.getElementById(sectionId).classList.remove('hidden');
-    }
-
-    function completeTask(taskId) {
-      alert(`Task ${taskId} completed!`);
-      // Add logic for completing tasks and boosting mining rate
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 100); // Reward for task completion
-      updateBalanceDisplay();
-    }
-
-
-    function claimDailyReward() {
-      alert('Daily reward claimed!');
-      // Add logic for claiming daily rewards
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 15); // Daily reward amount
-      updateBalanceDisplay();
-    }
-
-    function inviteFriend() {
-      alert('Invite sent!');
-      // Add logic for inviting friends
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 20); // Reward for inviting friend
-      updateBalanceDisplay();
-    }
-
-    function enableNotifications() {
-      alert('Notifications enabled!');
-      // Add logic for enabling notifications
-    }
-
-    function sendReminder() {
-      setTimeout(function() {
-        alert('Reminder: Come back to mine more CosmicCoin!');
-        // Add logic to send notification
-      }, 1000); // Adjust the timing as necessary
+  }, 1000); // Adjust the timing as necessary
     }
   </script>
 </body>
