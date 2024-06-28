@@ -52,7 +52,42 @@
       background-clip: text;
       animation: gradient-animation 2s linear infinite, rotate-animation 2s linear infinite;
     }
-    
+     .rotating-circle {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border: 5px solid;
+      border-image: linear-gradient(45deg, #ff0099, #493240, #1CB5E0, #000046) 1;
+      border-radius: 50%;
+      animation: rotate-animation 4s linear infinite;
+      margin: auto;
+    }
+    @keyframes rotate-animation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .rotating-circle .balance {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.5rem;
+    }
+    .task-button {
+      background: linear-gradient(45deg, #ff0099, #493240, #1CB5E0, #000046);
+      color: white;
+      font-bold;
+      padding: 1rem;
+      border-radius: 1rem;
+      transition: background 0.3s ease;
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .task-button:hover {
+      background-position: 100% 0;
+                                  
     }
   </style>
 </head>
@@ -93,6 +128,7 @@
 
   <div id="rewardsSection" class="hidden">
     <h2 class="text-2xl mb-4">Daily Rewards</h2>
+    <p>Claim Your Daily Cosmic Loot! 🚀 Get your daily dose of $COSMIC tokens and fuel your intergalactic adventures</p>
     <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full" onclick="claimDailyReward()">Claim Daily Reward</button>
   </div>
 
