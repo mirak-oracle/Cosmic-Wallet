@@ -254,35 +254,16 @@
     }
 
     function enableNotifications() {
-  if ("Notification" in window) {
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        alert('Notifications enabled!');
-        new Notification('CosmicCoin Mining', {
-          body: 'Notifications enabled for CosmicCoin mining updates.',
-          icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png' // URL to icon image
-        });
-      } else {
-        alert('Notifications are blocked. Please enable them in your browser settings.');
-      }
-    });
-  } else {
-    alert('This browser does not support desktop notification');
-  }
-}
-
-function sendReminder() {
-  setTimeout(function() {
-    if (Notification.permission === "granted") {
-      new Notification('CosmicCoin Mining Reminder', {
-        body: 'Reminder: Come back to mine more CosmicCoin!',
-        icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png' // URL to icon image
-      });
-    } else {
-      alert('Reminder: Come back to mine more CosmicCoin!');
+      alert('Notifications enabled!');
+      // Add logic for enabling notifications
     }
-  }, 1000); // Adjust the timing as necessary
-}
+
+    function sendReminder() {
+      setTimeout(function() {
+        alert('Reminder: Come back to mine more CosmicCoin!');
+        // Add logic to send notification
+      }, 1000); // Adjust the timing as necessary
+    }
     }
   </script>
 </body>
