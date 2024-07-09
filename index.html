@@ -295,6 +295,8 @@
 
     let userCoins = parseFloat(localStorage.getItem('userCoins')) || 0;
 
+let userCoins = parseFloat(localStorage.getItem('userCoins')) || 0;
+
 function joinSquad(squad) {
   const rewards = {
     'CEO_CTO_CLAUNS': 25e9,  // 25 billion
@@ -305,18 +307,28 @@ function joinSquad(squad) {
     'CPO_GUYS': 8.5e9,       // 8.5 billion
     'CMO_RESORTS': 7.5e9     // 7.5 billion
   };
-  
+
   let reward = rewards[squad] || 0;
   userCoins += reward;
   localStorage.setItem('userCoins', userCoins);
-  
-  alert(`Joined ${squad.replace(/_/g, ' ')}! Reward: ${reward} CosmicCoins. Total: ${userCoins} CosmicCoins.`);
+
+  alert(`Joined ${squad.replace(/_/g, ' ')}! Reward: ${reward.toLocaleString()} CosmicCoins. Total: ${userCoins.toLocaleString()} CosmicCoins.`);
 
   const maxReward = Math.max(...Object.values(rewards));
   if (reward === maxReward) {
     alert('Congratulations! You joined the squad with the highest CosmicCoin amount. Extra reward granted!');
     userCoins += 5000;  // Extra reward for joining the highest squad
     localStorage.setItem('userCoins', userCoins);
+  }
+
+  updateBalanceDisplay();
+}
+
+function updateBalanceDisplay() {
+  const balance = localStorage.getItem('userCoins') || '0';
+  document.getElementById('miningAmount').innerText = `Current Balance: ${parseFloat(balance).toLocaleString()} CosmicCoin`;
+}
+
   }
 }
 
