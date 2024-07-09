@@ -294,7 +294,9 @@
     }
 
     let userCoins = parseFloat(localStorage.getItem('userCoins')) || 0;
-
+  
+    }
+    
 function joinSquad(squad) {
   const rewards = {
     'CEO_CTO_CLAUNS': 25e9,  // 25 billion
@@ -326,7 +328,7 @@ function updateBalanceDisplay() {
   const balance = localStorage.getItem('userCoins') || '0';
   document.getElementById('miningAmount').innerText = `Current Balance: ${parseFloat(balance).toLocaleString()} CosmicCoin`;
 }
-    }
+    
   }
 // Update balance display after joining a squad
 function updateBalanceDisplay() {
@@ -334,7 +336,7 @@ function updateBalanceDisplay() {
   document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
 }
     }
-
+   }
     window.addEventListener('load', function() {
       setTimeout(() => {
         document.getElementById('loadingScreen').style.display = 'none';
