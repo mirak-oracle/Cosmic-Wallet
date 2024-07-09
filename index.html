@@ -293,20 +293,20 @@
 
    function activateBooster(booster) {
       alert(`${booster.charAt(0).toUpperCase() + booster.slice(1)} Booster activated!`);
-      document.querySelector('.balance').textContent = '50%';  // Placeholder for actual logic
+      document.querySelector('.balance').textContent = '10%';  // Placeholder for actual logic
     }
 
     let userCoins = parseFloat(localStorage.getItem('userCoins')) || 0;
 
 function joinSquad(squad) {
   const rewards = {
-    'CEO_CTO_CLAUNS': 25e9,  // 25 billion
-    'CAO_HUBS': 21e9,        // 21 billion
-    'CPO_VILLAGES': 19e9,    // 19 billion
-    'CMO_VILLAS': 18e9,      // 18 billion
-    'CAO_CREWS': 10e9,       // 10 billion
-    'CPO_GUYS': 8.5e9,       // 8.5 billion
-    'CMO_RESORTS': 7.5e9     // 7.5 billion
+    'CEO_CTO_CLAUNS': 25e9,  // 
+    'CAO_HUBS': 21e9,        // 
+    'CPO_VILLAGES': 19e9,    // 
+    'CMO_VILLAS': 18e9,      // 
+    'CAO_CREWS': 10e9,       // 
+    'CPO_GUYS': 8.5e9,       // 
+    'CMO_RESORTS': 7.5e9     // 
   };
 
   let reward = rewards[squad] || 0;
