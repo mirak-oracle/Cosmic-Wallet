@@ -293,24 +293,38 @@
       document.querySelector('.balance').textContent = '15%';  // Placeholder for actual logic
     }
 
-    function joinSquad(squad) {
-      let rewards = {
-        'CEO_CTO_CLAUNS': 25000000000,
-        'CAO_HUBS': 21000000000,
-        'CPO_VILLAGES': 19000000000,
-        'CMO_VILLAS': 18000000000,
-        'CAO_CREWS': 10000000000,
-        'CPO_GUYS': 8.5000000000,
-        'CMO_RESORTS': 7.5000000000
-      };
-      let reward = rewards[squad] || 1000;
-      userCoins += reward;
-      alert(`Joined ${squad.replace(/_/g, ' ')}! Reward: ${reward} CosmicCoins. Total: ${userCoins} CosmicCoins.`);
+    let userCoins = parseFloat(localStorage.getItem('userCoins')) || 0;
 
-      if (userCoins === Math.max(...Object.values(rewards))) {
-        alert(`Congratulations! You joined the squad with the highest CosmicCoin amount. Extra reward granted!`);
-        userCoins += 5000;  // Extra reward for joining the highest squad
-      }
+function joinSquad(squad) {
+  const rewards = {
+    'CEO_CTO_CLAUNS': 25e9,  // 25 billion
+    'CAO_HUBS': 21e9,        // 21 billion
+    'CPO_VILLAGES': 19e9,    // 19 billion
+    'CMO_VILLAS': 18e9,      // 18 billion
+    'CAO_CREWS': 10e9,       // 10 billion
+    'CPO_GUYS': 8.5e9,       // 8.5 billion
+    'CMO_RESORTS': 7.5e9     // 7.5 billion
+  };
+  
+  let reward = rewards[squad] || 0;
+  userCoins += reward;
+  localStorage.setItem('userCoins', userCoins);
+  
+  alert(`Joined ${squad.replace(/_/g, ' ')}! Reward: ${reward} CosmicCoins. Total: ${userCoins} CosmicCoins.`);
+
+  const maxReward = Math.max(...Object.values(rewards));
+  if (reward === maxReward) {
+    alert('Congratulations! You joined the squad with the highest CosmicCoin amount. Extra reward granted!');
+    userCoins += 5000;  // Extra reward for joining the highest squad
+    localStorage.setItem('userCoins', userCoins);
+  }
+}
+
+// Update balance display after joining a squad
+function updateBalanceDisplay() {
+  const balance = localStorage.getItem('userCoins') || '0';
+  document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
+}
     }
 
     window.addEventListener('load', function() {
