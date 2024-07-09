@@ -236,7 +236,7 @@
     }
 
     function updateMiningAmount(secondsLeft) {
-      const ratePerSecond = 0.20; // Adjust mining rate per second
+      const ratePerSecond = 0.50; // Adjust mining rate per second
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
       document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
@@ -300,7 +300,7 @@
 
 function joinSquad(squad) {
   const rewards = {
-    'CEO_CTO_CLAUNS': 25e9,  // 
+    'CEO_CTO_CLAUNS': 25,  // 
     'CAO_HUBS': 21e9,        // 
     'CPO_VILLAGES': 19e9,    // 
     'CMO_VILLAS': 18e9,      // 
@@ -318,7 +318,7 @@ function joinSquad(squad) {
   const maxReward = Math.max(...Object.values(rewards));
   if (reward === maxReward) {
     alert('Congratulations! You joined the squad with the highest CosmicCoin amount. Extra reward granted!');
-    userCoins += 5000;  // Extra reward for joining the highest squad
+    userCoins += 500;  // Extra reward for joining the highest squad
     localStorage.setItem('userCoins', userCoins);
   }
 
