@@ -233,7 +233,7 @@
     }
 
     function updateMiningAmount(secondsLeft) {
-      const ratePerSecond = 0.40; // Adjust mining rate per second
+      const ratePerSecond = 0.20; // Adjust mining rate per second
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       const miningAmount = currentBalance + (ratePerSecond * (60 * 60 * 24 - secondsLeft)); // Total mined amount
       document.getElementById('miningAmount').innerText = `Current Balance: ${miningAmount.toFixed(4)} CosmicCoin`;
@@ -268,7 +268,7 @@
       alert(`Task ${taskId} completed!`);
       // Add logic for completing tasks and boosting mining rate
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 200); // Reward for task completion
+      localStorage.setItem('balance', currentBalance + 100); // Reward for task completion
       updateBalanceDisplay();
     }
 
@@ -276,7 +276,7 @@
       alert('Daily reward claimed!');
       // Add logic for claiming daily rewards
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 100); // Daily reward amount
+      localStorage.setItem('balance', currentBalance + 50); // Daily reward amount
       updateBalanceDisplay();
     }
 
@@ -284,19 +284,17 @@
       alert('Invite sent!');
       // Add logic for inviting friends
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 60); // Reward for inviting friend
+      localStorage.setItem('balance', currentBalance + 40); // Reward for inviting friend
       updateBalanceDisplay();
     }
 
    function activateBooster(booster) {
       alert(`${booster.charAt(0).toUpperCase() + booster.slice(1)} Booster activated!`);
-      document.querySelector('.balance').textContent = '15%';  // Placeholder for actual logic
+      document.querySelector('.balance').textContent = '50%';  // Placeholder for actual logic
     }
 
     let userCoins = parseFloat(localStorage.getItem('userCoins')) || 0;
-  
-    }
-    
+
 function joinSquad(squad) {
   const rewards = {
     'CEO_CTO_CLAUNS': 25e9,  // 25 billion
@@ -328,15 +326,9 @@ function updateBalanceDisplay() {
   const balance = localStorage.getItem('userCoins') || '0';
   document.getElementById('miningAmount').innerText = `Current Balance: ${parseFloat(balance).toLocaleString()} CosmicCoin`;
 }
-    
-  }
-// Update balance display after joining a squad
-function updateBalanceDisplay() {
-  const balance = localStorage.getItem('userCoins') || '0';
-  document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
-}
+
     }
-   }
+
     window.addEventListener('load', function() {
       setTimeout(() => {
         document.getElementById('loadingScreen').style.display = 'none';
