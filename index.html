@@ -284,11 +284,46 @@
     }
 
     function inviteFriend() {
-      alert('Invite sent!');
-      // Add logic for inviting friends
+      const referralCode = generateReferralCode();
+      const referralLink = `http://www.appcreator24.com/app1148362-f6a0hw?ref=${referralCode}`;
+
+      alert(`Invite a friend using this referral link: ${referralLink}`);
+      
+      // Share the referral link
+      if (navigator.share) {
+        navigator.share({
+          title: 'Join the CosmicCoin Galaxy Airdrop!',
+          text: 'Join me in earning CosmicCoin through the CosmicCoin Galaxy Airdrop. Use my referral link to get started!',
+          url: referralLink,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+      } else {
+        console.log('Web Share API is not supported in this browser.');
+      }
+
+      // Update balance
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       localStorage.setItem('balance', currentBalance + 40); // Reward for inviting friend
       updateBalanceDisplay();
+    }
+
+    function generateReferralCode() {
+      // Generate a simple and professional referral code
+      const timestamp = Date.now().toString(36); // Convert current timestamp to a base-36 string
+      const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase(); // Generate a random string and convert to uppercase
+      return `${timestamp}-${randomPart}`;
+    }
+
+    function updateBalanceDisplay() {
+      const balance = localStorage.getItem('balance') || '0';
+      document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      updateBalanceDisplay();
+    });
+    
     }
 
    function activateBooster(booster) {
