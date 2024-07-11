@@ -124,54 +124,65 @@
   </style>
 </head>
   
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .userId {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to the CosmicCoin Airdrop</h1>
-  <button id="createUserButton">Create User</button>
-  <p id="userId"></p>
-  <button id="getAllUsersButton">Get All Users</button>
+  <button id="createUserButton">Generate User ID</button>
+  <div id="userId"></div>
 
-  <script type="text/javascript">
+  <script>
     // Function to generate a unique user ID
     function generateUniqueId() {
       return 'user-' + Math.random().toString(36).substr(2, 9); // Example of a simple unique ID generator
     }
 
-    // Function to create a new user with a unique ID and initial balance
+    // Function to create a new user with a unique ID and store in localStorage
     function createUser() {
       const userId = generateUniqueId();
-      const users = JSON.parse(localStorage.getItem('users')) || {};
-
-      // Check if user ID already exists (though this method is unlikely to generate duplicates)
-      while (users[userId]) {
-        userId = generateUniqueId();
-      }
-
-      users[userId] = { userId: userId, balance: 0 };
-      localStorage.setItem('users', JSON.stringify(users));
-
+      localStorage.setItem('userId', userId);
       console.log('User created with ID:', userId);
       return userId;
     }
 
-    // Function to get all users and display their IDs and balances
-    function getAllUsers() {
-      const users = JSON.parse(localStorage.getItem('users')) || {};
-      Object.keys(users).forEach(userId => {
-        console.log('User ID:', userId, 'Balance:', users[userId].balance);
-      });
-    }
-
-    // Event listeners for buttons
+    // Event listener for button click to create user
     document.getElementById('createUserButton').addEventListener('click', () => {
       const userId = createUser();
-      document.getElementById('userId').innerText = `Your User ID is: ${userId}`;
-    });
-
-    document.getElementById('getAllUsersButton').addEventListener('click', () => {
-      getAllUsers();
+      const userIdElement = document.createElement('p');
+      userIdElement.className = 'userId';
+      userIdElement.innerText = `Your User ID is: ${userId}`;
+      document.getElementById('userId').appendChild(userIdElement);
     });
   </script>
+</body>
+</html>
 
 
 <body class="bg-gray-900 text-white text-center p-6">
