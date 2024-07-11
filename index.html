@@ -289,6 +289,7 @@
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
       localStorage.setItem('balance', currentBalance + 60); // Reward for inviting friend
       updateBalanceDisplay();
+    }
       
     function inviteFriend() {
       const referralCode = generateReferralCode();
