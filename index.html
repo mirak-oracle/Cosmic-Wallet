@@ -271,7 +271,7 @@
       alert(`Task ${taskId} completed!`);
       // Add logic for completing tasks and boosting mining rate
       const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 100); // Reward for task completion
+      localStorage.setItem('balance', currentBalance + 80); // Reward for task completion
       updateBalanceDisplay();
     }
 
