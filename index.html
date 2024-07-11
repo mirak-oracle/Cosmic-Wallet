@@ -125,6 +125,7 @@
 </head>
   
 
+  
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -166,9 +167,12 @@
 
     // Function to create a new user with a unique ID and store in localStorage
     function createUser() {
-      const userId = generateUniqueId();
-      localStorage.setItem('userId', userId);
-      console.log('User created with ID:', userId);
+      let userId = localStorage.getItem('userId');
+      if (!userId) {
+        userId = generateUniqueId();
+        localStorage.setItem('userId', userId);
+      }
+      console.log('User ID:', userId);
       return userId;
     }
 
@@ -180,9 +184,21 @@
       userIdElement.innerText = `Your User ID is: ${userId}`;
       document.getElementById('userId').appendChild(userIdElement);
     });
+
+    // On page load, check if user ID exists in localStorage and display
+    window.onload = () => {
+      const userId = localStorage.getItem('userId');
+      if (userId) {
+        const userIdElement = document.createElement('p');
+        userIdElement.className = 'userId';
+        userIdElement.innerText = `Your User ID is: ${userId}`;
+        document.getElementById('userId').appendChild(userIdElement);
+      }
+    };
   </script>
 </body>
 </html>
+
 
 
 <body class="bg-gray-900 text-white text-center p-6">
