@@ -284,6 +284,13 @@
     }
 
     function inviteFriend() {
+      alert('Invite sent!');
+      // Add logic for inviting friends
+      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+      localStorage.setItem('balance', currentBalance + 60); // Reward for inviting friend
+      updateBalanceDisplay();
+      
+    function inviteFriend() {
       const referralCode = generateReferralCode();
       const referralLink = `http://www.appcreator24.com/app1148362-f6a0hw?ref=${referralCode}`;
 
