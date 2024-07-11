@@ -283,55 +283,76 @@
       updateBalanceDisplay();
     }
 
-    function inviteFriend() {
-      alert('Invite sent!');
-      // Add logic for inviting friends
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 60); // Reward for inviting friend
-      updateBalanceDisplay();
-    }
       
     function inviteFriend() {
-      const referralCode = generateReferralCode();
-      const referralLink = `http://www.appcreator24.com/app1148362-f6a0hw?ref=${referralCode}`;
+  const referralCode = generateReferralCode();
+  const referralLink = `http://www.appcreator24.com/app1148362-f6a0hw?ref=${referralCode}`;
 
-      alert(`Invite a friend using this referral link: ${referralLink}`);
-      
-      // Share the referral link
-      if (navigator.share) {
-        navigator.share({
-          title: 'Join the CosmicCoin Galaxy Airdrop!',
-          text: 'Join me in earning CosmicCoin through the CosmicCoin Galaxy Airdrop. Use my referral link to get started!',
-          url: referralLink,
-        })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
-      } else {
-        console.log('Web Share API is not supported in this browser.');
-      }
+  alert(`Invite a friend using this referral link: ${referralLink}`);
+  
+  // Share the referral link
+  if (navigator.share) {
+    navigator.share({
+      title: 'Join the CosmicCoin Galaxy Airdrop!',
+      text: 'Join me in earning CosmicCoin through the CosmicCoin Galaxy Airdrop. Use my referral link to get started!',
+      url: referralLink,
+    })
+    .then(() => console.log('Successful share'))
+    .catch((error) => console.log('Error sharing', error));
+  } else {
+    console.log('Web Share API is not supported in this browser.');
+  }
 
-      // Update balance
-      const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-      localStorage.setItem('balance', currentBalance + 40); // Reward for inviting friend
-      updateBalanceDisplay();
-    }
+  // Reward the inviter (initial setup of referral code balance)
+  localStorage.setItem(`balance_${referralCode}`, '0');
+}
 
-    function generateReferralCode() {
-      // Generate a simple and professional referral code
-      const timestamp = Date.now().toString(36); // Convert current timestamp to a base-36 string
-      const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase(); // Generate a random string and convert to uppercase
-      return `${timestamp}-${randomPart}`;
-    }
+function generateReferralCode() {
+  // Generate a simple and professional referral code
+  const timestamp = Date.now().toString(36); // Convert current timestamp to a base-36 string
+  const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase(); // Generate a random string and convert to uppercase
+  return `${timestamp}-${randomPart}`;
+}
 
-    function updateBalanceDisplay() {
-      const balance = localStorage.getItem('balance') || '0';
-      document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
-    }
+function updateBalanceDisplay() {
+  const balance = localStorage.getItem('balance') || '0';
+  document.getElementById('miningAmount').innerText = `Current Balance: ${balance} CosmicCoin`;
+}
 
-    document.addEventListener("DOMContentLoaded", function() {
-      updateBalanceDisplay();
-    });
+function rewardReferrer(referralCode) {
+  // Assuming referralCode can be used to identify the referrer
+  const referrerBalanceKey = `balance_${referralCode}`;
+  const currentBalance = parseFloat(localStorage.getItem(referrerBalanceKey)) || 0;
+  const newBalance = currentBalance + 40; // Reward amount
+  localStorage.setItem(referrerBalanceKey, newBalance);
 
+  console.log(`Referrer with code ${referralCode} now has a balance of ${newBalance} CosmicCoin`);
+}
+
+function rewardNewUser() {
+  const currentUserBalance = parseFloat(localStorage.getItem('balance')) || 0;
+  const newBalance = currentUserBalance + 60; // Reward for using referral code
+  localStorage.setItem('balance', newBalance);
+}
+
+function checkReferral() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const referralCode = urlParams.get('ref');
+  if (referralCode) {
+    rewardReferrer(referralCode);
+    rewardNewUser();
+    updateBalanceDisplay();
+
+    alert(`You've been rewarded for using a referral code! Your current balance is ${localStorage.getItem('balance')} CosmicCoin.`);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  updateBalanceDisplay();
+  checkReferral();
+});
+
+  
    function activateBooster(booster) {
       alert(`${booster.charAt(0).toUpperCase() + booster.slice(1)} Booster activated!`);
       document.querySelector('.balance').textContent = '10%';  // Placeholder for actual logic
