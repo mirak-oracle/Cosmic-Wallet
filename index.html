@@ -123,6 +123,57 @@
     }
   </style>
 </head>
+  
+</head>
+<body>
+  <h1>Welcome to the CosmicCoin Airdrop</h1>
+  <button id="createUserButton">Create User</button>
+  <p id="userId"></p>
+  <button id="getAllUsersButton">Get All Users</button>
+
+  <script type="text/javascript">
+    // Function to generate a unique user ID
+    function generateUniqueId() {
+      return 'user-' + Math.random().toString(36).substr(2, 9); // Example of a simple unique ID generator
+    }
+
+    // Function to create a new user with a unique ID and initial balance
+    function createUser() {
+      const userId = generateUniqueId();
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+
+      // Check if user ID already exists (though this method is unlikely to generate duplicates)
+      while (users[userId]) {
+        userId = generateUniqueId();
+      }
+
+      users[userId] = { userId: userId, balance: 0 };
+      localStorage.setItem('users', JSON.stringify(users));
+
+      console.log('User created with ID:', userId);
+      return userId;
+    }
+
+    // Function to get all users and display their IDs and balances
+    function getAllUsers() {
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+      Object.keys(users).forEach(userId => {
+        console.log('User ID:', userId, 'Balance:', users[userId].balance);
+      });
+    }
+
+    // Event listeners for buttons
+    document.getElementById('createUserButton').addEventListener('click', () => {
+      const userId = createUser();
+      document.getElementById('userId').innerText = `Your User ID is: ${userId}`;
+    });
+
+    document.getElementById('getAllUsersButton').addEventListener('click', () => {
+      getAllUsers();
+    });
+  </script>
+
+
 <body class="bg-gray-900 text-white text-center p-6">
   <div class="loading-screen" id="loadingScreen">
     <div>
