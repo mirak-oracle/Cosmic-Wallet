@@ -12,7 +12,7 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyB_ALVZRrzoiCsO1PUbSDDNHClr-bjdTMA",
+      apiKey: "",
       authDomain: "cosmiccoin-galaxy-airdrop.firebaseapp.com",
       projectId: "cosmiccoin-galaxy-airdrop",
       storageBucket: "cosmiccoin-galaxy-airdrop.appspot.com",
@@ -543,35 +543,79 @@ function updateBalanceDisplay() {
         document.getElementById('loadingScreen').style.display = 'none';
       }, 3000);  // Simulates a 3-second loading screen
     });
-    function enableNotifications() {
-      if ("Notification" in window) {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            alert('Notifications enabled!');
-            new Notification('CosmicCoin Mining', {
-              body: 'Notifications enabled for CosmicCoin mining updates.',
-              icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png' // URL to icon image
-            });
-          } else {
-            alert('Notifications are blocked. Please enable them in your browser settings.');
-          }
+    // Set mining duration (e.g., 12 hours or 24 hours in milliseconds)
+const miningDuration12Hours = 12 * 60 * 60 * 1000;
+const miningDuration24Hours = 24 * 60 * 60 * 1000;
+
+// Function to enable notifications
+function enableNotifications() {
+  if ("Notification" in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        alert('Notifications enabled!');
+        new Notification('CosmicCoin Mining', {
+          body: 'Notifications enabled for CosmicCoin mining updates.',
+          icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png'
         });
       } else {
-        alert('This browser does not support desktop notification');
+        alert('Notifications are blocked. Please enable them in your browser settings.');
       }
-    }
+    });
+  } else {
+    alert('This browser does not support desktop notification');
+  }
+}
 
-    function sendReminder() {
-      setTimeout(function() {
-        if (Notification.permission === "granted") {
-          new Notification('CosmicCoin Mining Reminder', {
-            body: 'Reminder: Come back to mine more CosmicCoin!',
-            icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png' // URL to icon image
-          });
-        } else {
-          alert('Reminder: Come back to mine more CosmicCoin!');
-        }
-      }, 1000); // Adjust the timing as necessary
+// Function to start mining
+function startMining(duration) {
+  document.getElementById('miningStatus').innerText = 'Mining in progress...';
+  setTimeout(miningCompleted, duration);
+}
+
+// Function to notify mining completion
+function miningCompleted() {
+  document.getElementById('miningStatus').innerText = 'Mining completed!';
+
+  if (Notification.permission === "granted") {
+    new Notification('CosmicCoin Mining Completed', {
+      body: 'Your mining session is completed. Come back to mine more CosmicCoin!',
+      icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png'
+    });
+  } else {
+    alert('Mining completed! Come back to mine more CosmicCoin!');
+  }
+}
+
+// Function to send reminder
+function sendReminder() {
+  setTimeout(function() {
+    if (Notification.permission === "granted") {
+      new Notification('CosmicCoin Mining Reminder', {
+        body: 'Reminder: Come back to mine more CosmicCoin!',
+        icon: 'https://cdn.iconfinder.com/data/icons/essentials-9/128/__bell-512.png'
+      });
+    } else {
+      alert('Reminder: Come back to mine more CosmicCoin!');
+    }
+  }, 60000); // Reminder after 1 minute (adjust as necessary)
+}
+
+// Event listeners for buttons
+document.getElementById('enableNotificationsButton').addEventListener('click', enableNotifications);
+
+document.getElementById('startMining12HoursButton').addEventListener('click', () => {
+  startMining(miningDuration12Hours);
+  sendReminder();
+});
+
+document.getElementById('startMining24HoursButton').addEventListener('click', () => {
+  startMining(miningDuration24Hours);
+  sendReminder();
+});
+
+// Ensure notifications are available when the page is reloaded
+if (Notification.permission === "granted") {
+  alert('Notifications are already enabled.');
     }
   </script>
 </body>
