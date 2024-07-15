@@ -6,6 +6,7 @@
   <title>CosmicCoin Mining Airdrop</title>
   
 
+  
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
@@ -37,13 +38,7 @@
         console.error('Error signing in anonymously', error);
       });
 
-    function generateUserID() {
-      const userID = 'user-' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('userID', userID);
-      alert(`Your user ID: ${userID}`);
-      return userID;
-    }
-
+    // Function to get the user ID from localStorage
     function getUserID() {
       let userID = localStorage.getItem('userID');
       if (!userID) {
@@ -52,17 +47,15 @@
       return userID;
     }
 
-    async function connectWallet() {
-      if (window.ethereum) {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const userID = accounts[0];
-        localStorage.setItem('userID', userID);
-        alert('Wallet connected');
-      } else {
-        alert('Please install MetaMask');
-      }
+    // Function to generate a new user ID and store it in localStorage
+    function generateUserID() {
+      const userID = 'user-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('userID', userID);
+      alert(`Your user ID: ${userID}`);
+      return userID;
     }
 
+    // Function to transfer balance to Firebase Firestore
     async function transferBalanceToServer() {
       const userID = getUserID();
       const balance = localStorage.getItem('cosmicCoinBalance');
@@ -88,17 +81,22 @@
       localStorage.setItem('cosmicCoinBalance', '0');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
-      document.getElementById('transferToServerButton').addEventListener('click', transferBalanceToServer);
-    });
+    // Example function to manually transfer balance (call this function when needed)
+    function transferBalance() {
+      transferBalanceToServer().then(() => {
+        console.log('Balance transferred successfully');
+      }).catch((error) => {
+        console.error('Error transferring balance', error);
+      });
+    }
   </script>
 </head>
 <body>
-  <button id="connectWalletButton">Connect Wallet</button>
-  <button id="transferToServerButton">Transfer Balance to Server</button>
+  <button onclick="transferBalance()">Transfer Balance to Server</button>
 </body>
 </html>
+
+  
 
 
  
