@@ -7,6 +7,108 @@
   
 
 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    #admin-section {
+      display: none; /* Hide the admin section by default */
+      margin-top: 20px;
+    }
+    #export-data {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>CosmicCoin Galaxy Airdrop</h1>
+  <div id="user-info"></div>
+  <div id="admin-section">
+    <h2>Admin Section</h2>
+    <button id="export-data">Export All User Data</button>
+    <pre id="export-output"></pre>
+  </div>
+  <script>
+    // Generate a Unique User ID
+    function generateUserId() {
+      return 'user_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Check if userId exists in localStorage, otherwise generate and store it
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      userId = generateUserId();
+      localStorage.setItem('userId', userId);
+      localStorage.setItem(userId, JSON.stringify({ balance: 0 })); // Initial balance is 0
+    }
+
+    // Display user info
+    function displayUserInfo() {
+      const userInfoDiv = document.getElementById('user-info');
+      const userData = JSON.parse(localStorage.getItem(userId));
+      userInfoDiv.innerHTML = `<p>Your User ID: ${userId}</p><p>Your Balance: ${userData.balance}</p>`;
+    }
+
+    // Store User Balance
+    function storeUserBalance(userId, balance) {
+      const userData = JSON.parse(localStorage.getItem(userId)) || {};
+      userData.balance = balance;
+      localStorage.setItem(userId, JSON.stringify(userData));
+    }
+
+    // Admin: Export all user data from localStorage
+    function exportUserData() {
+      const exportOutput = document.getElementById('export-output');
+      const allData = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('user_')) {
+          allData[key] = JSON.parse(localStorage.getItem(key));
+        }
+      }
+      exportOutput.textContent = JSON.stringify(allData, null, 2);
+    }
+
+    // Set event listener for export button
+    document.getElementById('export-data').addEventListener('click', exportUserData);
+
+    // Example usage
+    function exampleUsage() {
+      console.log('Your User ID:', userId);
+
+      // Store balance (update as needed)
+      storeUserBalance(userId, 100); // Set balance to 100 for example
+
+      // Display user info
+      displayUserInfo();
+    }
+
+    exampleUsage();
+
+    // Admin Authentication
+    function authenticateAdmin() {
+      const password = prompt('Enter admin password:');
+      if (password === '09074007361') { // Replace with your admin password
+        document.getElementById('admin-section').style.display = 'block';
+      } else {
+        alert('Incorrect password!');
+      }
+    }
+
+    // Prompt admin for password
+    authenticateAdmin();
+  </script>
+</body>
+</html>
+
 
 
  
