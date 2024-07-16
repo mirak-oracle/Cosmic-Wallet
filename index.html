@@ -345,52 +345,6 @@
     <button class="task-button mb-4" onclick="showSection('boosterSection')">Boosters</button>
     <button class="task-button mb-4" onclick="showSection('squadsSection')">Squads</button>
   </div>
-<script type="module">
-  // Firebase initialization code (already included above)
-
-  // Function to generate unique user ID
-  function generateUniqueId() {
-    return 'xxxxxx'.replace(/[x]/g, () => (Math.random() * 36 | 0).toString(36));
-  }
-
-  // Function to create a new user with a unique ID and initial balance
-  async function createUser() {
-    const userId = generateUniqueId();
-    await setDoc(doc(db, 'users', userId), {
-      userId,
-      balance: 0
-    });
-
-    document.getElementById('userId').innerText = `Your User ID is: ${userId}`;
-    return userId;
-  }
-
-  // Function to get user balance by ID
-  async function getUserBalance(userId) {
-    const userRef = doc(db, 'users', userId);
-    const userDoc = await getDoc(userRef);
-    if (userDoc.exists()) {
-      return userDoc.data().balance;
-    } else {
-      console.log('No such document!');
-      return null;
-    }
-  }
-
-  // Example usage: Create a user and display their ID
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('createUserButton').addEventListener('click', async () => {
-      const userId = await createUser();
-      console.log('User created with ID:', userId);
-    });
-
-    document.getElementById('getBalanceButton').addEventListener('click', async () => {
-      const userId = document.getElementById('userIdInput').value;
-      const balance = await getUserBalance(userId);
-      document.getElementById('balance').innerText = `Balance: ${balance}`;
-    });
-  });
-</script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
