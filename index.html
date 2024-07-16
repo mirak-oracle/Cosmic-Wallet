@@ -5,17 +5,13 @@
   <meta charset="UTF-8">
   <title>CosmicCoin Mining Airdrop</title>
   
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js"></script>
+<head>
+  <!-- Include jQuery before your custom scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  ...
 </head>
-<body>
-  <button onclick="handleAuthClick()">Sign In</button>
-  <button onclick="handleSignoutClick()">Sign Out</button>
 
-  <div id="user-info"></div>
-  <div id="balance-info"></div>
-
+  
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
@@ -122,6 +118,13 @@
       getUserData(userId);
     });
   </script>
+</head>
+<body>
+  <button onclick="handleAuthClick()">Sign In</button>
+  <button onclick="handleSignoutClick()">Sign Out</button>
+
+  <div id="user-info"></div>
+  <div id="balance-info"></div>
 </body>
 </html>
 
