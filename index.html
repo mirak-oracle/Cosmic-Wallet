@@ -192,76 +192,7 @@
 
   
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .userId {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-<body>
-  <button id="createUserButton">Generate User ID</button>
-  <div id="userId"></div>
-
-  <script>
-    // Function to generate a unique user ID
-    function generateUniqueId() {
-      return 'user-' + Math.random().toString(36).substr(2, 9); // Example of a simple unique ID generator
-    }
-
-    // Function to create a new user with a unique ID and store in localStorage
-    function createUser() {
-      let userId = localStorage.getItem('userId');
-      if (!userId) {
-        userId = generateUniqueId();
-        localStorage.setItem('userId', userId);
-      }
-      console.log('User ID:', userId);
-      return userId;
-    }
-
-    // Event listener for button click to create user
-    document.getElementById('createUserButton').addEventListener('click', () => {
-      const userId = createUser();
-      const userIdElement = document.createElement('p');
-      userIdElement.className = 'userId';
-      userIdElement.innerText = `Your User ID is: ${userId}`;
-      document.getElementById('userId').appendChild(userIdElement);
-    });
-
-    // On page load, check if user ID exists in localStorage and display
-    window.onload = () => {
-      const userId = localStorage.getItem('userId');
-      if (userId) {
-        const userIdElement = document.createElement('p');
-        userIdElement.className = 'userId';
-        userIdElement.innerText = `Your User ID is: ${userId}`;
-        document.getElementById('userId').appendChild(userIdElement);
-      }
-    };
-  </script>
-</body>
-</html>
+  
 
 
 
