@@ -7,6 +7,87 @@
   
 
 
+  <div id="user-info"></div>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyB_ALVZRrzoiCsO1PUbSDDNHClr-bjdTMA",
+    authDomain: "cosmiccoin-galaxy-airdrop.firebaseapp.com",
+    databaseURL: "https://cosmiccoin-galaxy-airdrop-default-rtdb.firebaseio.com",
+    projectId: "cosmiccoin-galaxy-airdrop",
+    storageBucket: "cosmiccoin-galaxy-airdrop.appspot.com",
+    messagingSenderId: "544564103496",
+    appId: "1:544564103496:web:8f866098ec96c9242a8b7d",
+    measurementId: "G-V2KBXHFY2D"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  
+    // Generate a Unique User ID
+    function generateUserId() {
+      return 'user_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Check if userId exists in localStorage, otherwise generate and store it
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      userId = generateUserId();
+      localStorage.setItem('userId', userId);
+    }
+
+    // Store User Data in Firestore
+    async function storeUserData(userId, balance) {
+      try {
+        await setDoc(doc(db, "users", userId), { balance: balance });
+        console.log("User data stored successfully");
+      } catch (error) {
+        console.error("Error storing user data: ", error);
+      }
+    }
+
+    // Get User Data from Firestore
+    async function getUserData(userId) {
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("User data:", docSnap.data());
+        return docSnap.data();
+      } else {
+        console.log("No such user data!");
+        return null;
+      }
+    }
+
+    // Example usage
+    async function exampleUsage() {
+      console.log('Your User ID:', userId);
+
+      // Store balance (update as needed)
+      await storeUserData(userId, 100); // Set balance to 100 for example
+
+      // Get and display user info
+      const userData = await getUserData(userId);
+      if (userData) {
+        const userInfoDiv = document.getElementById('user-info');
+        userInfoDiv.innerHTML = `<p>Your User ID: ${userId}</p><p>Your Balance: ${userData.balance}</p>`;
+      }
+    }
+
+    exampleUsage();
+  </script>
+</body>
+</html>
+
   
 
 
