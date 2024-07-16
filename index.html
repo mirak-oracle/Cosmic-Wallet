@@ -6,7 +6,124 @@
   <title>CosmicCoin Mining Airdrop</title>
   
 
-  
+
+    <!-- Your existing HTML content -->
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js"></script>
+
+    <script type="module">
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_ALVZRrzoiCsO1PUbSDDNHClr-bjdTMA",
+            authDomain: "cosmiccoin-galaxy-airdrop.firebaseapp.com",
+            projectId: "cosmiccoin-galaxy-airdrop",
+            storageBucket: "cosmiccoin-galaxy-airdrop.appspot.com",
+            messagingSenderId: "544564103496",
+            appId: "1:544564103496:web:8f866098ec96c9242a8b7d",
+            measurementId: "G-V2KBXHFY2D"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Function to generate a unique user ID
+        function generateUserID() {
+            return 'user-' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // Function to get or create a user ID
+        function getUserID() {
+            let userID = localStorage.getItem('userID');
+            if (!userID) {
+                userID = generateUserID();
+                localStorage.setItem('userID', userID);
+                // Add the new user to Firestore
+                try {
+                    db.collection('users').doc(userID).set({ balance: 0 });
+                } catch (error) {
+                    console.error("Error adding user to Firestore: ", error);
+                }
+            }
+            return userID;
+        }
+
+        // Function to update user balance in Firestore
+        async function updateUserBalance(amount) {
+            const userID = getUserID();
+            try {
+                await db.collection('users').doc(userID).update({
+                    balance: firebase.firestore.FieldValue.increment(amount)
+                });
+                console.log(`Updated balance by ${amount} for user: ${userID}`);
+            } catch (error) {
+                console.error("Error updating balance: ", error);
+            }
+        }
+
+        // Function to set user balance in Firestore
+        async function setUserBalance(newBalance) {
+            const userID = getUserID();
+            try {
+                await db.collection('users').doc(userID).set({
+                    balance: newBalance
+                }, { merge: true });
+                console.log(`Set balance to ${newBalance} for user: ${userID}`);
+            } catch (error) {
+                console.error("Error setting balance: ", error);
+            }
+        }
+
+        // Function to get user balance from Firestore
+        async function getUserBalance(callback) {
+            const userID = getUserID();
+            try {
+                const doc = await db.collection('users').doc(userID).get();
+                if (doc.exists) {
+                    callback(doc.data().balance);
+                } else {
+                    console.log("No such document!");
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
+            }
+        }
+
+        // Function to retrieve all user data (admin function)
+        async function getAllUsers() {
+            try {
+                const snapshot = await db.collection('users').get();
+                snapshot.forEach((doc) => {
+                    console.log(`${doc.id} => `, doc.data());
+                });
+            } catch (error) {
+                console.error("Error retrieving users: ", error);
+            }
+        }
+
+        // Example usage
+        const userID = getUserID();
+        console.log('User ID:', userID);
+
+        // Add 100 to the user's balance
+        updateUserBalance(100);
+
+        // Set the user's balance to a specific amount
+        setUserBalance(500);
+
+        // Get the user's balance
+        getUserBalance((balance) => {
+            console.log('User balance:', balance);
+        });
+
+        // Retrieve all user data (admin function)
+        getAllUsers();
+    </script>
+</body>
+</html>
+
   
 
 
