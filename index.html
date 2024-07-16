@@ -30,17 +30,7 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   
-    // Generate a Unique User ID
-    function generateUserId() {
-      return 'user_' + Math.random().toString(36).substr(2, 9);
-    }
-
-    // Check if userId exists in localStorage, otherwise generate and store it
-    let userId = localStorage.getItem('userId');
-    if (!userId) {
-      userId = generateUserId();
-      localStorage.setItem('userId', userId);
-    }
+    
 
     // Store User Data in Firestore
     async function storeUserData(userId, balance) {
