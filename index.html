@@ -186,7 +186,7 @@
   <script>
     // Function to generate a unique user ID
     function generateUniqueId() {
-      return 'user-' + Math.random().toString(36).substr(2, 9); // Example of a simple unique ID generator
+      return 'user-' + Math.random().toString(36).substr(2, 9);
     }
 
     // Function to create a new user with a unique ID and store in localStorage
@@ -195,9 +195,29 @@
       if (!userId) {
         userId = generateUniqueId();
         localStorage.setItem('userId', userId);
+        localStorage.setItem(userId + '_balance', 0); // Initialize user balance to 0
       }
       console.log('User ID:', userId);
       return userId;
+    }
+
+    // Function to get the user balance from localStorage
+    function getUserBalance(userId) {
+      let userBalance = localStorage.getItem(userId + '_balance');
+      if (userBalance === null) {
+        userBalance = 0; // Default balance if not found
+        localStorage.setItem(userId + '_balance', userBalance);
+      }
+      return parseFloat(userBalance);
+    }
+
+    // Function to display the user balance
+    function displayUserBalance(userId, elementId) {
+      const userBalance = getUserBalance(userId);
+      const userBalanceElement = document.createElement('p');
+      userBalanceElement.className = 'userBalance';
+      userBalanceElement.innerText = `Your Balance is: $${userBalance.toFixed(2)}`;
+      document.getElementById(elementId).appendChild(userBalanceElement);
     }
 
     // Event listener for button click to create user
@@ -207,6 +227,7 @@
       userIdElement.className = 'userId';
       userIdElement.innerText = `Your User ID is: ${userId}`;
       document.getElementById('userId').appendChild(userIdElement);
+      displayUserBalance(userId, 'userBalance');
     });
 
     // On page load, check if user ID exists in localStorage and display
@@ -217,11 +238,14 @@
         userIdElement.className = 'userId';
         userIdElement.innerText = `Your User ID is: ${userId}`;
         document.getElementById('userId').appendChild(userIdElement);
+        displayUserBalance(userId, 'userBalance');
       }
     };
   </script>
 </body>
 </html>
+
+
 
 
 
